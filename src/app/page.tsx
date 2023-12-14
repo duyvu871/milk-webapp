@@ -7,13 +7,13 @@ import CheckBoxDefault from "@/components/InputField/Checkbox";
 import ButtonDefault from "@/components/Button";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import useWindowDimensions from "@/hooks/useWindowDimensions";
+// import useWindowDimensions from "@/hooks/useWindowDimensions";
 
 export default function Home() {
     const { push } = useRouter();
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
-    const {width, height} = useWindowDimensions();
+    // const {width, height} = useWindowDimensions();
 
   return (
     <div className={"login-background w-full h-full flex justify-center items-start px-16"}>
