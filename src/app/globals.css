@@ -36,3 +36,7 @@ body {
 
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#35D1E2", endColorstr="#C9C9C9", GradientType=1 );
 }
+
+.h-inherit {
+    height: inherit;
+}
