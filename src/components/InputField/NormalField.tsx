@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useEffect} from "react";
 import {tw} from "@/ultis/tailwind.ultis";
 import {NormalFieldProps} from "@/components/InputField/InputType";
@@ -21,8 +23,8 @@ setFieldValue, placeholder, validate, customChildren, type
     }, [value]);
 
     return (
-        <div className={"flex flex-col justify-start  w-full text-black"}>
-            <div className={"rounded-full bg-white p-2 w-full flex flex-row"}>
+        <div className={"flex flex-col justify-center items-center  w-full text-black"}>
+            <div className={"rounded-full bg-white p-3 px-6 w-full flex flex-row"}>
                 <input
                     onChange={(e) => {
                         setValue(e.target.value);
@@ -32,7 +34,7 @@ setFieldValue, placeholder, validate, customChildren, type
                     className={tw(
                         "w-full outline-none text-black",
                         "text-md font-bold",
-                        isAlert ? "border-2 border-red-500 text-red-500" : ""
+                        isAlert ? "text-red-500" : ""
                     )}
                     type={type || "text"}
                 />

@@ -15,12 +15,12 @@ export default function Page({}: {}) {
 
     return (
         <div className={"flex flex-col justify-center items-center"}>
-            <NextOrderPanel orderID={"5232"} timeLeft={100000}/>
+            <NextOrderPanel orderID={"5232"} timeLeft={1000000000}/>
             <InlineTag content={"Thương hệu mang tới \"hạnh phúc đích thực\""} />
             <div className={"flex flex-row flex-1 justify-around items-start gap-2 w-full my-4"}>
                 {
                     productKeys.map((productKey, index) => {
-                        console.log("productKey: ", index);
+                        // console.log("productKey: ", index);
                         if (index%2 === 0) {
                             // console.log("productKey: ", index)
                            return (

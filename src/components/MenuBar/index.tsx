@@ -47,7 +47,7 @@ const MenuItem = ({children, direct}: {children: React.ReactNode; direct: string
 
 export default function MenuBar() {
     return (
-        <div className={"flex flex-col bg-[#103A49] w-full fixed bottom-0"}>
+        <div className={"flex flex-col bg-[#103A49] w-full fixed bottom-0 max-w-[390px]"}>
             <UserInfo id={"123456789"} balance={"100.000đ"}/>
             <MenuItemWrapper>
                 <MenuItem direct={"/home"}>

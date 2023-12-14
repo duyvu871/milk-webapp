@@ -4,6 +4,7 @@ import {NormalFieldProps} from "@/components/InputField/InputType";
 
 // import icons
 import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa";
 
 interface PasswordFieldProps extends NormalFieldProps {
 
@@ -23,7 +24,7 @@ export default function PasswordField({
                 <div className={"flex flex-row justify-center items-center"} onClick={() => {
                     setIsShowPassword(!isShowPassword);
                 }}>
-                    <FaEye className={"text-gray-500"}/>
+                    {isShowPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
                 </div>
             }
         />
