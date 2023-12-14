@@ -83,7 +83,7 @@ export default function  NextOrderProduct({
                         return (
                             <div className={"flex flex-row items-stretch justify-center gap-4"} key={"item-"+index}>
                                 <div className={"flex flex-row justify-between items-center w-[calc(50%-20px)] h-full gap-2 border-2 border-[#68878E] rounded-md h-inherit"} key={"product-" + index}>
-                                    <div className={"text-start break-normal capitalize"}>
+                                    <div className={"text-start break-normal uppercase"}>
                                         {products[0][index].name}
                                     </div>
                                     <div className={"text-center"}>
@@ -91,7 +91,7 @@ export default function  NextOrderProduct({
                                     </div>
                                 </div>
                                 <div className={"flex flex-row justify-between items-center w-[calc(50%-20px)] h-full gap-2 border-2 border-[#68878E] rounded-md h-inherit"} key={"product-" + index}>
-                                    <div className={"text-start break-normal capitalize"}>
+                                    <div className={"text-start break-normal uppercase"}>
                                         {products[1][index].name}
                                     </div>
                                     <div className={"text-center"}>
