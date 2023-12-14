@@ -21,7 +21,7 @@ export default function NextOrderResult({
         <div className={"flex flex-col bg-[#68878E] p-2"}>
             <div className={"flex flex-row justify-between items-center w-full border-white border-b-2 p-2 mb-4"}>
                 <div className={"text-md font-bold text-white"}>
-                    AFamily
+                    HANAMMILK
                 </div>
                 <div className={"text-xs font-bold text-white"}>
                     Kết quả đơn hàng {orderID} hôm nay:

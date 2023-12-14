@@ -20,7 +20,7 @@ export default function Home() {
         {/*<Image src={"/banner.jpg"} width={1000}height={1000} objectFit={"cover"}/>*/}
         <div className={"flex flex-col justify-center items-center gap-4"}>
             <h1 className={"font-bold text-3xl text-white mt-32 mb-16"}>
-                AFamily
+                HANAMMILK
             </h1>
             <NormalField
                 setFieldValue={(string) => {
