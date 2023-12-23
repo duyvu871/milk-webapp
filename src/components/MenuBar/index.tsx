@@ -1,5 +1,6 @@
 import {tw} from "@/ultis/tailwind.ultis";
 import Link from "next/link";
+import { formatCurrency } from "@/ultis/currency-format";
 
 // import icons
 import { IoMdHome } from "react-icons/io";
@@ -45,10 +46,11 @@ const MenuItem = ({children, direct}: {children: React.ReactNode; direct: string
     )
 }
 
-export default function MenuBar() {
+export default function MenuBar({userData}: {userData: any}) {
+    // console.log("userData: ", userData);
     return (
         <div className={"flex flex-col bg-[#103A49] w-full fixed bottom-0 max-w-[390px]"}>
-            <UserInfo id={"123456789"} balance={"100.000đ"}/>
+            <UserInfo id={userData?.["_id"]} balance={"10000"}/>
             <MenuItemWrapper>
                 <MenuItem direct={"/home"}>
                     <IoMdHome size={20} color={"white"}/>

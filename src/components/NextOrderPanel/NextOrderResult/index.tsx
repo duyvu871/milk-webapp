@@ -1,15 +1,13 @@
-
+import ResultDisplay from "./NextOrderResultDisplay";
 
 // import icons
 import { IoIosInformationCircleOutline } from "react-icons/io";
-
 
 interface NextOrderResultProps {
     orderID: string;
     timeLeft: number
     result: number | string;
 }
-
 
 
 export default function NextOrderResult({
@@ -30,15 +28,7 @@ export default function NextOrderResult({
                     <IoIosInformationCircleOutline className={"text-white text-lg"} width={12} height={12}/>
                 </div>
             </div>
-            <div className={"flex flex-row justify-center items-center gap-4 w-full"}>
-                {
-                    digits.map((digit, index) => (
-                        <div className={"px-2 bg-white border-black border-1 font-bold"} key={"digits-" + index}>
-                            {digit}
-                        </div>
-                    ))
-                }
-            </div>
+            <ResultDisplay result={digits}/>
         </div>
     )
 }

@@ -40,3 +40,15 @@ body {
 .h-inherit {
     height: inherit;
 }
+
+.main-gradiant {
+    background: hsla(196, 64%, 17%, 1);
+
+    background: linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);
+
+    background: -moz-linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);
+
+    background: -webkit-linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);
+
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#103A49", endColorstr="#375A66", GradientType=1 );
+}

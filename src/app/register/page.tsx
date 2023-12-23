@@ -12,6 +12,38 @@ export default function Home() {
     const { push } = useRouter();
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
+    const [phoneNumber, setPhoneNumber] = React.useState<string>("");
+    const [userName, setUserName] = React.useState<string>("");
+
+    const signUp = async function() {
+        const requestBody = {
+            email,
+            password,
+            phone: phoneNumber,
+            username: userName
+        }
+        await fetch(`/api/v1/auth/sign-up`, {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            redirect: 'follow',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                if(res.status === 200){
+                    push("/");
+                } else if (res.status === 400){
+                    alert(res.message);
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
 
     return (
         <div className={"login-background w-full h-full flex justify-center items-start px-16"}>
@@ -22,7 +54,7 @@ export default function Home() {
                 </h1>
                 <NormalField
                     setFieldValue={(string) => {
-                        setPassword(string);
+                        setUserName(string);
                     }}
                     placeholder={"Họ tên"}
                     validate={(e) => {
@@ -34,7 +66,7 @@ export default function Home() {
                 />
                 <NormalField
                     setFieldValue={(string) => {
-                        setPassword(string);
+                        setPhoneNumber(string);
                     }}
                     placeholder={"Số điện thoại"}
                     validate={(e) => {
@@ -78,7 +110,7 @@ export default function Home() {
                 {/*</div>*/}
                 <div className={"flex flex-row justify-center items-center gap-4"}>
                     <button onClick={() => {
-                        push("/")
+                        signUp();
                     }} className={"rounded-full bg-[#113b49] hover:bg-blue-600 px-16 py-3 font-bold text-white"}>
                         Đăng kí
                     </button>

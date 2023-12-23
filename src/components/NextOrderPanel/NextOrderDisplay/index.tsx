@@ -56,7 +56,7 @@ export default function NextOrderDisplay({
     return (
         <div className={tw(
             "flex justify-center items-center p-4",
-            `text-white font-boldtext-xs`,
+            `text-white font-bold text-xs`,
             "bg-[#103A49]",
         )}>
             <div className={""}>
