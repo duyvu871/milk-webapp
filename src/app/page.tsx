@@ -54,7 +54,7 @@ export default function Home() {
         } else {
             const verifyToken = async function() {
                 await fetch(`${AppConfig.mainApiUrl}/auth/profile`, {
-                    method: "POST",
+                    method: "GET",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                         "x-access-token": `${access_token}`

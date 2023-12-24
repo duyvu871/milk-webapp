@@ -12,15 +12,15 @@ interface ISignInRequest {
 }
 
 export const dynamic = "force-static";
-export async function GET(request: Request) {
-    try {
+// export async function GET(request: Request) {
+//     try {
+//
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
 
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export async function HEAD(request: NextRequest) {}
+// export async function HEAD(request: NextRequest) {}
 
 export async function POST(request: NextRequest) {
     try {
@@ -72,11 +72,11 @@ export async function POST(request: NextRequest) {
     }
 }
 
-export async function PUT(request: NextRequest) {}
-
-export async function DELETE(request: NextRequest) {}
-
-export async function PATCH(request: NextRequest) {}
-
-// If `OPTIONS` is not defined, Next.js will automatically implement `OPTIONS` and  set the appropriate Response `Allow` header depending on the other methods defined in the route handler.
-export async function OPTIONS(request: NextRequest) {}
+// export async function PUT(request: NextRequest) {}
+//
+// export async function DELETE(request: NextRequest) {}
+//
+// export async function PATCH(request: NextRequest) {}
+//
+// // If `OPTIONS` is not defined, Next.js will automatically implement `OPTIONS` and  set the appropriate Response `Allow` header depending on the other methods defined in the route handler.
+// export async function OPTIONS(request: NextRequest) {}
