@@ -1,3 +1,5 @@
+"use client"
+
 import TrendingDisplay from "@/components/Trending";
 
 export default function Page() {

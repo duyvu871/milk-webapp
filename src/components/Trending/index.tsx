@@ -22,13 +22,15 @@ const TrendingDisplay = () => {
     const { push } = useRouter();
 
     const [data, setData] = useState<ITableItem[]>([]);
-    const initial = useRef(false);
-
+    // const initial = useRef(false);
+    // const initial = useRef(true);
     useEffect(() => {
-        if (!initial.current) {
-            initial.current = true;
-            return;
-        } else {
+        // alert("TrendingDisplay");
+        // if (!initial.current) {
+        //     initial.current = true;
+        //     return;
+        // } else {
+        //     alert("TrendingDisplay inside initial.current");
             const access_token =  localStorage.getItem("access_token")
             // console.log(access_token)
             if(!access_token){
@@ -56,7 +58,7 @@ const TrendingDisplay = () => {
 
                 getOrderList();
             }
-        }
+        // }
     }, []);
 
 
