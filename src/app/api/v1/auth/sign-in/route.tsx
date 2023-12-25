@@ -11,7 +11,7 @@ interface ISignInRequest {
     isRemember: boolean;
 }
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic"
 // export async function GET(request: Request) {
 //     try {
 //
@@ -24,19 +24,21 @@ export const dynamic = "force-static";
 
 export async function POST(request: NextRequest) {
     try {
+
+        // const json = await request.json();
         const json: ISignInRequest = await request.json();
-        console.log(json);
+        // console.log(json);
         const {password, email, isRemember} = json;
 
         // const urlEncoded = new url.URLSearchParams();
         // urlEncoded.append("password", password);
         // urlEncoded.append("email", email);
         // urlEncoded.append("isRemember", isRemember.toString());
-
+        //
         // const bodyRequest = Object.keys(json)
         //     .map((key) => `${key}=${encodeURIComponent(json[key])}`)
         //     .join('&')
-        //
+
         // const response = await axios.post(`${AppConfig.mainApiUrl}/auth/sign-in`,
         //     bodyRequest, {
         //     headers: {
@@ -56,12 +58,17 @@ export async function POST(request: NextRequest) {
             })
         }).then(res => res.json());
 
-        console.log(response)
+        // console.log(response)
 
         return new NextResponse(JSON.stringify(response), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });
+
+        // return new NextResponse(JSON.stringify({}), {
+        //     status: 200,
+        //     headers: { "Content-Type": "application/json" },
+        // });
     } catch (e: any) {
         console.log(e);
         return new NextResponse(JSON.stringify({ error: e.message }), {

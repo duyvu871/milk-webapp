@@ -5,8 +5,7 @@ import {NextRequest, NextResponse} from "next/server";
 import AppConfig from "@/configs/App.config";
 import { headers } from "next/headers";
 
-
-export const dynamic = "force-static";
+// export const dynamic = "force-dynamic"
 export async function GET(request: Request) {
     try {
         // @ts-ignore

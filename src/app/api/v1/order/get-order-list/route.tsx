@@ -5,14 +5,14 @@ import {NextRequest, NextResponse} from "next/server";
 import AppConfig from "@/configs/App.config";
 import { headers } from "next/headers";
 
-
-export const dynamic = "force-static";
+export const runtime = 'edge';
+// export const dynamic = "force-dynamic"
 export async function GET(request: Request) {
     try {
         // @ts-ignore
         const requestHeaders = headers(request);
         const access_token = requestHeaders.get("x-access-token");
-        // console.log("access_token: ", access_token);
+        console.log("access_token: ", access_token);
         const response = await fetch(`${AppConfig.mainApiUrl}/order/`, {
             method: "POST",
             body: new URLSearchParams(),
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
             },
         }).then(res => res.json());
 
-        // console.log(response)
+        console.log(response)
         return new NextResponse(JSON.stringify(response || {}), {
             status: 200,
             headers: { "Content-Type": "application/json" },
