@@ -7,6 +7,7 @@ import MenuBar from "@/components/MenuBar";
 import {useRouter} from "next/navigation";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import fakeResponseData from "@/fakeData/fakeResponseData";
+import AppConfig from "@/configs/App.config";
 
 
 interface ITableItem {
@@ -35,16 +36,14 @@ const TrendingDisplay = () => {
             } else {
                 const getOrderList = async () => {
                     console.log(access_token)
-                    await fetch(`${'http://localhost:3000'}/auth/order/get-order-list`, {
+                    const response = await fetch(`${AppConfig.mainApiUrl}/order/get-order-list`, {
                         method: "GET",
+                        // body: new URLSearchParams(),
                         headers: {
-                            "x-access-token": access_token,
                             "Content-Type": "application/x-www-form-urlencoded",
+                            "x-access-token": access_token || ""
                         },
-                    })
-                        .then((response) => {
-                            return response.json();
-                        })
+                    }).then(res => res.json())
                         .then((data) => {
                             console.log(data);
                             setData(data);
@@ -52,7 +51,7 @@ const TrendingDisplay = () => {
                         .catch((error) => {
                             console.log(error);
                         });
-                    setData(fakeResponseData.orderList.map((item) => ({orderID: String(item.orderID), result: Number(item.result)})));
+                    // setData(fakeResponseData.orderList.map((item) => ({orderID: String(item.orderID), result: Number(item.result)})));
                 }
 
                 getOrderList();

@@ -5,7 +5,7 @@ import {NextRequest, NextResponse} from "next/server";
 import AppConfig from "@/configs/App.config";
 import { headers } from "next/headers";
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 // export const dynamic = "force-dynamic"
 export async function GET(request: Request) {
     try {
@@ -13,9 +13,9 @@ export async function GET(request: Request) {
         const requestHeaders = headers(request);
         const access_token = requestHeaders.get("x-access-token");
         console.log("access_token: ", access_token);
-        const response = await fetch(`${AppConfig.mainApiUrl}/order/`, {
-            method: "POST",
-            body: new URLSearchParams(),
+        const response = await fetch(`${AppConfig.mainApiUrl}/order/get-order-list`, {
+            method: "GET",
+            // body: new URLSearchParams(),
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "x-access-token": access_token || ""

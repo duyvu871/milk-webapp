@@ -3,7 +3,7 @@
 import {NextRequest, NextResponse} from "next/server";
 // import axios, {isCancel, Axios, AxiosResponse} from "axios";
 import AppConfig from "@/configs/App.config";
-// import { headers } from "next/headers";
+import { headers } from "next/headers";
 
 interface IGetProfileRequest {
     access_token: string;
@@ -14,19 +14,19 @@ export async function GET(request: NextRequest) {
     try {
         console.log("GET: ", request.headers.get("x-access-token"));
         // @ts-ignore
-        // const requestHeaders = headers(request);
-        // const access_token = requestHeaders.get("x-access-token");
-        // // console.log("access_token: ", access_token);
-        // const response: any = await fetch(`${AppConfig.mainApiUrl}/auth/profile`, {
-        //     method: "POST",
-        //     body: new URLSearchParams(),
-        //     headers: {
-        //         "Content-Type": "application/x-www-form-urlencoded",
-        //         "x-access-token": access_token || ""
-        //     },
-        // }).then(res => {
-        //     return res.json();
-        // });
+        const requestHeaders = headers(request);
+        const access_token = requestHeaders.get("x-access-token");
+        // console.log("access_token: ", access_token);
+        const response: any = await fetch(`${AppConfig.mainApiUrl}/auth/profile`, {
+            method: "POST",
+            body: new URLSearchParams(),
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "x-access-token": access_token || ""
+            },
+        }).then(res => {
+            return res.json();
+        });
 
         // console.log(response)
         return new NextResponse(JSON.stringify( {}), {
