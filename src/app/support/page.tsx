@@ -2,6 +2,10 @@
 import MenuBar from "@/components/MenuBar";
 import React from "react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+import useValidateUser from "@/hooks/useValidateUser";
+
+
 //icons import
 import { FaMoneyCheck } from "react-icons/fa";
 import { GiRotaryPhone } from "react-icons/gi";
@@ -36,6 +40,14 @@ const FeatureItem = ({icon, title, direct}: {icon: React.ReactNode, title: strin
     )
 }
 export default function Page() {
+    // const { push } = useRouter();
+    // const validateUser = useValidateUser();
+    // console.log("validate: ", validateUser)
+    // if (!validateUser) {
+    //     push("/");
+    // } else {
+    //     alert("oke");
+    // }
     return (
         <>
             <div className={"flex flex-col justify-center items-center"}>

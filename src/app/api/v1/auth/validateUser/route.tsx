@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-// import jwt from "jsonwebtoken";
+//@ts-ignore
+import { verify } from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
     try {
@@ -7,12 +8,30 @@ export async function POST(request: NextRequest) {
         const accessToken = requestBody.access_token;
         // const validateUser = await fetch(`https://graph.facebook.com/v11.0/me?fields=id%2Cname%2Cemail&access_token=${accessToken}`)
 
+        const validateUser = await verify(accessToken, "chaomungden");
+        // console.log(" validate: ", validateUser);
+        if (!validateUser) {
+            return new NextResponse(
+                JSON.stringify({
+                    status: 400,
+                    message: "error",
+                    data: {}
+                }),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    status: 400
+                }
+            )
+        }
+
         return new NextResponse(
             JSON.stringify({
                 status: 200,
                 message: "oke",
                 data: {
-                    // user: validateUser.json()
+                    user: validateUser
                 }
             }),
             {
@@ -22,13 +41,13 @@ export async function POST(request: NextRequest) {
                 status: 200
             }
         )
-    } catch (e) {
+    } catch (e: any) {
         return new NextResponse(
             JSON.stringify({
                 status: 400,
                 message: "error",
                 data: {
-                    // user: validateUser.json()
+                    error: e.message
                 }
             }),
             {
