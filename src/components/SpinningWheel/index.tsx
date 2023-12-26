@@ -26,69 +26,45 @@ export default function SpinningWheel() {
         return result;
     }
 
-    // function spin() {
-    //     let currentTime = performance.now();
-    //     let elapsedTime = currentTime - startTime;
-    //     let progress = elapsedTime / spinSpeed;
-    //
-    //     if (progress < 1) {
-    //         rotation = 360 * progress; // 360 degrees per turn, 2 turns per second
-    //         container.current.style.transform = "rotate(" + (totalRotation + rotation) + "deg)";
-    //         requestAnimationFrame(spin);
-    //     } else {
-    //         setIsSpinning(false);
-    //         setTotalRotation(totalRotation + rotation);
-    //         // totalRotation += rotation; // Cộng dồn góc quay
-    //         // Choose the result here based on the final rotation angle
-    //         chooseResult(totalRotation % 360);
-    //     }
-    // }
 
-    // let isSpinning = false;
 
-    function spinWheel() {
-        if (!isSpinning) {
-            // Vô hiệu hóa nút trong quá trình quay
-            // startButton.current.style.pointerEvents = 'none';
-            setIsSpinning(true);
-
-            // Tính toán góc quay mới giữa 5000 và 10000 độ
-            const deg = Math.floor(5000 + Math.random() * 5000);
-
-            // Thiết lập chuyển động trên bánh xe
-            wheel.current.style.transition = 'all 10s ease-out';
-
-            // Quay bánh xe
-            wheel.current.style.transform = `rotate(${deg}deg)`;
-
-            // Áp dụng hiệu ứng mờ
-            // wheel.current.classList.add('blur');
-
-            // Đặt một hẹn giờ để đặt lại trạng thái quay sau khi hoàn tất chuyển động
-            setTimeout(() => {
-                // Loại bỏ hiệu ứng mờ
-                // wheel.current.classList.remove('blur');
-                // Kích hoạt nút khi quay kết thúc
-                // startButton.current.style.pointerEvents = 'auto';
-                // Cần thiết lập chuyển động về không để quay ngay lập tức
-                wheel.current.style.transition = 'none';
-                // Tính toán góc thực sự dựa trên 360 độ để có quay "tự nhiên" thực sự
-                // Quan trọng vì chúng ta muốn bắt đầu quay tiếp theo từ góc đó
-                // Sử dụng phép chia dư để có giá trị còn lại từ 360
-                const actualDeg = deg % 360;
-                // Đặt quay thực sự ngay lập tức mà không có hiệu ứng
-                wheel.current.style.transform = `rotate(${actualDeg}deg)`;
-
-                // Đặt lại trạng thái quay
-                setIsSpinning(false);
-
-                // Gọi lại hàm spinWheel để bắt đầu quay mới
-                spinWheel();
-            }, 10000); // Điều chỉnh thời gian chờ để khớp với thời lượng chuyển động (10 giây trong trường hợp này)
-        }
-    }
 
     useEffect(() => {
+
+        function spinWheel() {
+            if (!isSpinning) {
+                // Vô hiệu hóa nút trong quá trình quay
+                // startButton.current.style.pointerEvents = 'none';
+                setIsSpinning(true);
+                // Tính toán góc quay mới giữa 5000 và 10000 độ
+                const deg = Math.floor(5000 + Math.random() * 5000);
+                // Thiết lập chuyển động trên bánh xe
+                wheel.current!.style.transition = 'all 10s ease-out';
+                // Quay bánh xe
+                wheel.current!.style.transform = `rotate(${deg}deg)`;
+                // Áp dụng hiệu ứng mờ
+                // wheel.current.classList.add('blur');
+                // Đặt một hẹn giờ để đặt lại trạng thái quay sau khi hoàn tất chuyển động
+                setTimeout(() => {
+                    // Loại bỏ hiệu ứng mờ
+                    // wheel.current.classList.remove('blur');
+                    // Kích hoạt nút khi quay kết thúc
+                    // startButton.current.style.pointerEvents = 'auto';
+                    // Cần thiết lập chuyển động về không để quay ngay lập tức
+                    wheel.current!.style.transition = 'none';
+                    // Tính toán góc thực sự dựa trên 360 độ để có quay "tự nhiên" thực sự
+                    // Quan trọng vì chúng ta muốn bắt đầu quay tiếp theo từ góc đó
+                    // Sử dụng phép chia dư để có giá trị còn lại từ 360
+                    const actualDeg = deg % 360;
+                    // Đặt quay thực sự ngay lập tức mà không có hiệu ứng
+                    wheel.current!.style.transform = `rotate(${actualDeg}deg)`;
+                    // Đặt lại trạng thái quay
+                    setIsSpinning(false);
+                    // Gọi lại hàm spinWheel để bắt đầu quay mới
+                    spinWheel();
+                }, 10000); // Điều chỉnh thời gian chờ để khớp với thời lượng chuyển động (10 giây trong trường hợp này)
+            }
+        }
 
         if (!isSpinning) {
             setIsSpinning(true);
