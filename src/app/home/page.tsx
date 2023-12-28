@@ -88,7 +88,7 @@ const Screen = (props: {} | any) => {
                         setState: setIsOpenInfoPopup
                     }
                 }}/>
-                <InlineTag content={"Thương hệu mang tới \"hạnh phúc đích thực\""}/>
+                <InlineTag content={"Thương hiệu mang tới \"hạnh phúc đích thực\""}/>
                 <ProductView productKeys={props.productKeys} stateControl={{
                     showPopup: {
                         state: isOpenPopup,
@@ -99,7 +99,7 @@ const Screen = (props: {} | any) => {
                     content={"Mùa hè sôi động cùng TH TRUEMILK với nhiều phần quà có giá trị lên tới 50 triệu đồng"}
                     className={"mx-4 mb-4"}/>
                 <SpinningWheel/>
-                <div className={"w-full text-md text-center capitalize font-semibold mx-4 text-gray-600 mb-[150px]"}>
+                <div className={"w-full text-md text-center uppercase font-semibold mx-4 text-gray-600 mb-[150px]"}>
                     Hệ thống đang tự động tìm khách hàng may mắn
                 </div>
                 <MenuBar userData={props.userData}/>
