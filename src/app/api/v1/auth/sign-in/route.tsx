@@ -7,7 +7,7 @@ import AppConfig from "@/configs/App.config";
 
 interface ISignInRequest {
     password: string;
-    email: string;
+    username: string;
     isRemember: boolean;
 }
 
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
         // const json = await request.json();
         const json: ISignInRequest = await request.json();
         // console.log(json);
-        const {password, email, isRemember} = json;
+        const {password, username, isRemember} = json;
 
         // const urlEncoded = new url.URLSearchParams();
         // urlEncoded.append("password", password);
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
             },
             body: new URLSearchParams({
                 password,
-                email,
+                username,
                 isRemember: isRemember.toString()
             })
         }).then(res => res.json());

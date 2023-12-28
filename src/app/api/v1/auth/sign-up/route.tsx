@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
                 body: new URLSearchParams({
                     username,
                     password,
-                    email,
-                    phone
+                    // email,
+                    // phone
                 })
        }).then(res => res.json());
 

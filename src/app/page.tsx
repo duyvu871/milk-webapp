@@ -13,14 +13,30 @@ import IntroductionFooter from "@/components/Introduction";
 
 export default function Home() {
     const { push } = useRouter();
-    const [email, setEmail] = React.useState<string>("");
+    const [username, setUsername] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
     const [isRemember, setIsRemember] = React.useState<boolean>(false);
     // const {width, height} = useWindowDimensions();
 
-    const login = async function() {
+    const [passwordAlert, setPasswordAlert] = React.useState<{status: "ALERT" | "SUCCESS"; message: string}>({
+        status: "SUCCESS",
+        message: ""
+    });
+    const [usernameAlert, setUserNameAlert] = React.useState<{status: "ALERT" | "SUCCESS"; message: string}>({
+        status: "SUCCESS",
+        message: ""
+    });
+
+    const validatePassword = (password: string, confirmPassword: string): boolean => {
+        return password === confirmPassword;
+    }
+
+    const userNameValidate = (userName: string): boolean => {
+        return userName.length > 0;
+    }
+    const sendLoginRequest = async function() {
         const requestBody = JSON.stringify({
-            email,
+            username,
             password,
             isRemember
         })
@@ -46,6 +62,28 @@ export default function Home() {
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const login = async function() {
+        let isValidated = true;
+        if (!userNameValidate(password)) {
+            isValidated = false;
+            setPasswordAlert({
+                status: "ALERT",
+                message: "Mật khẩu không trùng khớp"
+            })
+        }
+        if (!userNameValidate(username)) {
+            isValidated = false;
+            setUserNameAlert({
+                status: "ALERT",
+                message: "Tên đăng nhập phải lớn hơn 8 ký tự"
+            })
+        }
+
+        if (isValidated) {
+            await sendLoginRequest();
+        }
     }
 
     useLayoutEffect(() => {
@@ -79,62 +117,60 @@ export default function Home() {
 
   return (
       <>
-          <div className={"login-background w-full h-full flex justify-center items-start px-16"}>
-              <div className={"flex flex-col justify-center items-center gap-4"}>
-                  <h1 className={"font-bold text-3xl text-white mt-32 mb-16"}>
+          <div className={"flex px-8 w-full h-full min-h-screen justify-center items-start bg-[-o-linear-gradient(112deg,rgba(255,255,255,0),#f3fcff,#179fd0),url(/images/san-pham-th-true-milk-1.jpg)] bg-[linear-gradient(178178deg,rgba(255,255,255,0),#f3fcff,#179fd0),url(/images/san-pham-th-true-milk-1.jpg)] bg-[right_center] bg-no-repeat bg-[auto_100%] "}>
+              <div className={"flex flex-col justify-center items-center gap-3 w-full"}>
+                  <h1 className={"text-5xl text-[#113b49] mt-16 mb-16"}>
                       HANAMMILK
                   </h1>
                   <NormalField
                       setFieldValue={(string) => {
-                          setEmail(string);
+                          setUsername(string);
                       }}
-                      placeholder={"Email"}
+                      placeholder={"Tên đăng nhập"}
                       type={"text"}
-                      validate={(e) => {
-                          return {
-                              status: "ok",
-                              message: "error"
-                          }
+                      validate={{
+                            status: "SUCCESS",
+                            message: "error"
                       }}
                   />
+                  <div className={"mt-1"}></div>
                   <PasswordField
                       setFieldValue={(string) => {
                           setPassword(string);
                       }}
                       placeholder={"Mật khẩu"}
-                      validate={(e) => {
-                          return {
-                              status: "oke",
-                              message: "error"
-                          }
+                      validate={{
+                          status: "SUCCESS",
+                          message: "error"
                       }}
+
                   />
-                  <div className={" flex flex-col justify-start items-start"}>
+                  <div className={"my-4 flex flex-col justify-start items-start w-full"}>
                       <CheckBoxDefault
                           setChecked={() => {
                               setIsRemember(!isRemember);
                           }}
-                          content={"Ghi nhớ lần đăng nhập tiếp theo"}
+                          content={"Duy trì đăng nhập"}
                       />
                   </div>
-                  <div className={"flex flex-row justify-center items-center gap-4"}>
+                  <div className={"flex flex-row justify-center items-center gap-4 w-full"}>
                       <button onClick={() => {
                           login();
-                      }} className={"rounded-full bg-[#113b49] hover:bg-blue-600 px-16 py-3 font-bold text-white"}>
-                          Đăng nhập
+                      }} className={"rounded-full bg-[#113b49] hover:opacity-70 px-16 py-2 font-semibold text-xl text-white w-full"}>
+                          Đăng Nhập Ngay
                       </button>
                   </div>
-                  <div className={"flex flex-row gap-2"}>
-                      <p>
-                          Bạn chưa có tài khoản?
+                  <div className={"flex flex-row justify-center items-center gap-2 font-bold"}>
+                      <p className={"text-md"}>
+                          Bạn chưa có tài khoản? 👉
                       </p>
-                      <Link href={"/register"} className={"text-blue-600 font-semibold underline"}>
-                          Đăng kí
+                      <Link href={"/register"} className={"text-md text-blue-600 font-semibold underline"}>
+                          Đăng kí tài khoản mới
                       </Link>
                   </div>
               </div>
           </div>
-          <IntroductionFooter/>
+          {/*<IntroductionFooter/>*/}
       </>
   )
 }

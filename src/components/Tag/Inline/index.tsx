@@ -8,7 +8,7 @@ export default function InlineTag({
 }) {
     return (
         <div className={tw(
-            "mx-1 break-normal p-1 px-2 bg-[#103A49] rounded-md w-fit text-xs text-white",
+            "mx-1 break-normal p-1 px-2 bg-[#103A49] rounded-sm w-fit text-sm text-white",
             className || ""
         )}>
             {content}

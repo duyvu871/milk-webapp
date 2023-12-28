@@ -24,7 +24,7 @@ export default function PasswordField({
                 <div className={"flex flex-row justify-center items-center"} onClick={() => {
                     setIsShowPassword(!isShowPassword);
                 }}>
-                    {isShowPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                    {isShowPassword ? <FaEyeSlash size={16} className={"opacity-40"}/> : <FaEye size={16} className={"opacity-40"} />}
                 </div>
             }
         />

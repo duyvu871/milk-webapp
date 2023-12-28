@@ -12,15 +12,15 @@ setFieldValue, placeholder, validate, customChildren, type
     const [alertMessage, setAlertMessage] = React.useState<string>("");
 
     useEffect(() => {
-        const validateResult = validate?.(value);
-        if (validateResult?.status === "error") {
+        const validateResult = validate;
+        if (validateResult?.status === "ALERT") {
             setIsAlert(true);
             setAlertMessage(validateResult.message);
-        } else {
+        } else if (validateResult?.status === "SUCCESS") {
             setIsAlert(false);
             setAlertMessage("");
         }
-    }, [value]);
+    }, [validate]);
 
     return (
         <div className={"flex flex-col justify-center items-center  w-full text-black"}>
@@ -33,14 +33,14 @@ setFieldValue, placeholder, validate, customChildren, type
                     placeholder={placeholder}
                     className={tw(
                         "w-full outline-none text-black",
-                        "text-md font-bold",
-                        isAlert ? "text-red-500" : ""
+                        "text-md ",
+                        isAlert ? "text-red-500 italic" : ""
                     )}
                     type={type || "text"}
                 />
                 {customChildren}
             </div>
-            <span className={"text-red-500 text-xs"}>{alertMessage}</span>
+            <span className={"text-red-500 text-xs italic"}>{alertMessage}</span>
         </div>
     )
 }

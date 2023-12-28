@@ -4,7 +4,7 @@ export interface NormalFieldProps {
     setFieldValue: (value: string) => void;
     type?: string;
     placeholder?: string;
-    validate?: (value: string) => {
+    validate?: {
         status: string;
         message: string;
     };

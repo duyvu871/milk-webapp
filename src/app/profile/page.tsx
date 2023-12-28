@@ -80,7 +80,6 @@ export default function Page() {
                 <FeatureItem icon={<CiBank />} title={"Ngân hàng"} direct={"/profile/transaction-history"}/>
                 <FeatureItem icon={<FaLock />} title={"Đổi mật khẩu"} direct={"/profile/transaction-history"}/>
                 <FeatureItem icon={<MdLogout />} title={"Đăng xuất"} direct={"/profile/transaction-history"}/>
-
             </div>
             <MenuBar userData={{}}/>
         </div>

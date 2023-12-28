@@ -39,7 +39,7 @@ const CountDownDisplay = ({ time }: { time: number }) => {
         <div className={tw(
             "flex justify-center items-center",
         )}>
-            <div className={"text-xs font-bold"}>
+            <div className={"text-sm "}>
                 {countDown(countdown)}
             </div>
         </div>
@@ -56,13 +56,13 @@ export default function NextOrderDisplay({
     return (
         <div className={tw(
             "flex justify-center items-center p-4",
-            `text-white font-bold text-xs`,
+            `text-white text-sm`,
             "bg-[#103A49]",
         )}>
             <div className={""}>
                 Đơn hàng tiếp theo {orderID}
             </div>
-            <div className={"flex flex-row gap-1 ml-4 border-l border-white"}>
+            <div className={"flex flex-row gap-1 ml-4 border-l border-white pl-1"}>
                 <MdHistory size={24} color={"white"}/>
                 <CountDownDisplay time={timeLeft}/>
             </div>

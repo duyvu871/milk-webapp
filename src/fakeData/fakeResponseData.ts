@@ -3,7 +3,7 @@ const FakeResponseData = {
     products: {
         "TH TRUEMILK": {
             total: 100,
-            productImage: "/images/th-truemilk.png",
+            productImage: "/images/Logo_th_group.png",
             colorSignatures: "#A2D0FF",
             products: [
                 {
@@ -39,7 +39,7 @@ const FakeResponseData = {
         },
         "VINA MILK": {
             total: 100,
-            productImage: "/images/vinamilk.png",
+            productImage: "/images/Logo_vinamilk.png",
             colorSignatures: "#64C845",
             products: [
                 {
