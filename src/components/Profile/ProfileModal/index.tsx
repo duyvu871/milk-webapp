@@ -5,10 +5,10 @@ import React from "react";
 
 const ProfileModalHeading = ({handleClose, title}: {handleClose: () => void; title: string}) => {
     return (
-        <div className={"px-[20px] py-[15px] relative border-b-[1px] border-y-gray-300 flex justify-center items-center"}>
-            <div>{title}</div>
+        <div className={"px-[20px] py-[15px] relative border-b-[1px] border-y-gray-300 flex justify-center items-center bg-[#113b49]"}>
+            <div className={"text-white text-[18git px] leading-[30px] font-normal capitalize"}>{title}</div>
             <div className={"absolute right-0 top-[34px] px-4 text-center leading-[40px] mt-[-20px] text-[20px] font-thin cursor-pointer"} onClick={handleClose}>
-                <LiaTimesSolid size={25} color={"black"} className={""}/>
+                <LiaTimesSolid size={25} color={"white"} className={""}/>
             </div>
         </div>
     )

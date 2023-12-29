@@ -136,7 +136,7 @@ export default function Page() {
                 }}/>
             </div>
             <LiveChatWidgetProvider>
-                <MenuBar userData={{}}/>s
+                <MenuBar userData={{}}/>
             </LiveChatWidgetProvider>
 
             {
