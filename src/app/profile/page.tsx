@@ -3,7 +3,7 @@ import MenuBar from "@/components/MenuBar";
 import React, {useLayoutEffect} from "react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-
+import { logout } from "@/services/authenticate";
 //icons import
 import { FaMoneyCheck } from "react-icons/fa";
 import { GiRotaryPhone } from "react-icons/gi";
@@ -130,7 +130,10 @@ export default function Page() {
                 <FeatureItem icon={<MdCurrencyExchange />} title={"Lịch sử rút"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
                 <FeatureItem icon={<CiBank />} title={"Ngân hàng"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
                 <FeatureItem icon={<FaLock />} title={"Đổi mật khẩu"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
-                <FeatureItem icon={<MdLogout />} title={"Đăng xuất"} clickHandle={() => {}}/>
+                <FeatureItem icon={<MdLogout />} title={"Đăng xuất"} clickHandle={() => {
+                    logout();
+                    push("/");
+                }}/>
             </div>
             <LiveChatWidgetProvider>
                 <MenuBar userData={{}}/>s
