@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 // import rootReducer from "@/redux/reducers";
 const inter = Inter({ subsets: ['latin'] })
 import store from "@/redux/store";
+import {LiveChatWidgetProvider} from "@/contexts/livechatWidgetContext";
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -26,7 +27,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className={"max-w-[500px] w-full h-full"}>
             <Provider store={store}>
-                {children}
+                <LiveChatWidgetProvider>
+                    {children}
+                </LiveChatWidgetProvider>
             </Provider>
         </div>
       </body>

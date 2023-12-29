@@ -24,6 +24,9 @@ const TrendingDisplay = () => {
     const [data, setData] = useState<ITableItem[]>([]);
     // const initial = useRef(false);
     // const initial = useRef(true);
+
+
+
     useEffect(() => {
         // alert("TrendingDisplay");
         // if (!initial.current) {

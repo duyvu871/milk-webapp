@@ -42,13 +42,15 @@ body {
 }
 
 .main-gradiant {
-    background: hsla(196, 64%, 17%, 1);
+    /*background: hsla(196, 64%, 17%, 1);*/
 
-    background: linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);
+    /*background: linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);*/
 
-    background: -moz-linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);
+    /*background: -moz-linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);*/
 
-    background: -webkit-linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);
+    /*background: -webkit-linear-gradient(146deg, hsla(196, 64%, 17%, 1) 0%, hsla(195, 30%, 31%, 1) 42%, hsla(196, 16%, 46%, 1) 79%);*/
 
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#103A49", endColorstr="#375A66", GradientType=1 );
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#103A49", endColorstr="#375A66", GradientType=1 );*/
+
+    background: url("/images/bg_user_dy-logo.png?6f2fe27…"), linear-gradient(#68858d, #113b49);
 }

@@ -1,5 +1,5 @@
 "use client";
-import "./model.css";
+import "./modal.css";
 import {ReactNode, useContext, useState} from "react";
 import {pop} from "@jridgewell/set-array";
 import {useDispatch, useSelector} from "react-redux";

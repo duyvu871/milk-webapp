@@ -1,7 +1,9 @@
 "use client";
 import MenuBar from "@/components/MenuBar";
-import React from "react";
+import React, {useLayoutEffect} from "react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+
 //icons import
 import { FaMoneyCheck } from "react-icons/fa";
 import { GiRotaryPhone } from "react-icons/gi";
@@ -12,10 +14,13 @@ import { MdCurrencyExchange } from "react-icons/md";
 import { CiBank } from "react-icons/ci";
 import { FaLock } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import {LiveChatWidgetProvider} from "@/contexts/livechatWidgetContext";
+import {BankingRule} from "@/components/RuleInfo";
+import ProfileFeatureComponent from "@/components/Profile/ProfileFeatureComponent";
 
-const FeatureItem = ({icon, title, direct}: {icon: React.ReactNode, title: string, direct: string}) => {
+const FeatureItem = ({icon, title, direct, clickHandle}: {icon: React.ReactNode, title: string, direct?: string; clickHandle: () => void}) => {
     return (
-        <div className={"flex flex-row justify-between items-center w-full p-2 border-b-[1px] border-b-gray-20000"}>
+        <div className={"flex flex-row justify-between items-center w-full p-2 border-b-[1px] border-b-gray-20000 cursor-pointer"} onClick={clickHandle}>
             <div className={"flex flex-row justify-center items-center gap-2"}>
                 <div className={"text-xl text-[#68878E] flex flex-row justify-center items-center"}>
                     {icon}
@@ -25,15 +30,61 @@ const FeatureItem = ({icon, title, direct}: {icon: React.ReactNode, title: strin
                 </div>
             </div>
             <div className={"text-md text-[#68878E] font-semibold opacity-80"}>
-                <Link href={direct}>
+                {/*<Link href={direct}>*/}
                     <FaAngleRight />
-                </Link>
+                {/*</Link>*/}
             </div>
 
         </div>
     )
 }
 export default function Page() {
+
+    const [isOpenInfoPopup, setIsOpenInfoPopup] = React.useState<boolean>(false);
+    const { push } = useRouter();
+    // const [userData, setUserData] = React.useState<any>(null);
+
+    const [FeatureType, setFeatureType] = React.useState<string>("");
+
+    useLayoutEffect(() => {
+        // if (!initial.current) {
+        //     initial.current = true;
+        //
+        const access_token =  localStorage.getItem("access_token")
+        // console.log(access_token)
+        if(!access_token){
+            return push("/");
+        } else {
+            // console.log(access_token)
+            const verifyToken = async function() {
+                return await fetch(`/api/v1/auth/validateUser`, {
+                    method: "POST",
+                    // cache: "force-cache",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-access-token": access_token
+                    },
+                    body: JSON.stringify({
+                        access_token: access_token
+                    }),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        if(res.status === 200) {
+                            //setUserData(res.data.user);
+                        }
+                        else {
+                            alert("not validate user")
+                            push("/");
+                        }
+                    }).catch(err => {console.log(err)})
+            }
+            verifyToken();
+        }
+        //     return;
+        // }
+    }, []);
+
     return (
         <div className={"flex flex-col justify-center items-center"}>
             <div className={"main-gradiant flex flex-col justify-center items-center w-full rounded-b-3xl pb-12 relative"}>
@@ -73,15 +124,23 @@ export default function Page() {
                 </div>
             </div>
             <div className={"flex flex-col justify-center items-center w-full mt-16 p-4 gap-3"}>
-                <FeatureItem icon={<FaMoneyCheck />} title={"Lịch sử giao dịch"} direct={"/profile/transaction-history"}/>
-                <FeatureItem icon={<FaRegNewspaper />} title={"Biến động số tiền"} direct={"/profile/transaction-history"}/>
-                <FeatureItem icon={<AiOutlineStock />} title={"Lịch sử nạp"} direct={"/profile/transaction-history"}/>
-                <FeatureItem icon={<MdCurrencyExchange />} title={"Lịch sử rút"} direct={"/profile/transaction-history"}/>
-                <FeatureItem icon={<CiBank />} title={"Ngân hàng"} direct={"/profile/transaction-history"}/>
-                <FeatureItem icon={<FaLock />} title={"Đổi mật khẩu"} direct={"/profile/transaction-history"}/>
-                <FeatureItem icon={<MdLogout />} title={"Đăng xuất"} direct={"/profile/transaction-history"}/>
+                <FeatureItem icon={<FaMoneyCheck />} title={"Lịch sử giao dịch"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<FaRegNewspaper />} title={"Biến động số tiền"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<AiOutlineStock />} title={"Lịch sử nạp"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<MdCurrencyExchange />} title={"Lịch sử rút"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<CiBank />} title={"Ngân hàng"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<FaLock />} title={"Đổi mật khẩu"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<MdLogout />} title={"Đăng xuất"} clickHandle={() => {}}/>
             </div>
-            <MenuBar userData={{}}/>
+            <LiveChatWidgetProvider>
+                <MenuBar userData={{}}/>s
+            </LiveChatWidgetProvider>
+
+            {
+                isOpenInfoPopup && <ProfileFeatureComponent type={FeatureType}  closeHandle={() => {
+                    setIsOpenInfoPopup(false);
+                }}/>
+            }
         </div>
     )
 }

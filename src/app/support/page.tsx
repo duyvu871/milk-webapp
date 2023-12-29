@@ -108,7 +108,7 @@ export default function Page() {
                 </div>
                 <MenuBar userData={{}}/>
             </div>
-            <BoxChat />
+            {/*<BoxChat />*/}
         </>
     )
 }

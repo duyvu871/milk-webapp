@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
             return new NextResponse(
                 JSON.stringify({
                     status: 400,
-                    message: "error",
+                    message: "not validate",
                     data: {}
                 }),
                 {
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
         return new NextResponse(
             JSON.stringify({
                 status: 200,
-                message: "oke",
+                message: "validated user",
                 data: {
                     user: validateUser
                 }
