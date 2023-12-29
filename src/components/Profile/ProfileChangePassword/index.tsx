@@ -148,21 +148,22 @@ export default function ProfileChangePassword({ closeModalHandle }: { closeModal
 
     const handleUpdatePassword = async (e: React.MouseEvent) => {
         // e.preventDefault();
-        if (newPassword !== oldPassword) {
-            setError("New password and confirm password must be the same");
-            return;
-        }
-        if (!confirm) {
-            setError("Please confirm your password");
-            return;
-        }
-        if (newPassword.length < 8) {
-            setError("Password must be at least 8 characters");
-            return;
-        }
+        // if (newPassword !== oldPassword) {
+        //     setError("New password and confirm password must be the same");
+        //     return;
+        // }
+        // if (!confirm) {
+        //     setError("Please confirm your password");
+        //     return;
+        // }
+        // if (newPassword.length < 8) {
+        //     setError("Password must be at least 8 characters");
+        //     return;
+        // }
         setLoading(true);
         try {
-            await update.updatePassword(newPassword);
+            const access_token = localStorage.getItem("access_token");
+            await update.updatePassword(access_token, newPassword);
             setSuccess("Update password successfully");
             alert("Thay đổi mật khẩu thành công");
             setLoading(false);

@@ -9,12 +9,12 @@ export default function useAuth() {
 
     const update: Record<any, any> = {};
 
-    update.updatePassword = async function (refresh_token: string, password: string, username: string) {
+    update.updatePassword = async function (access_token: string, password: string, username: string) {
         const response = await fetch(`{AppConfig.mainApiUrl}/auth/update/update-password`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-access-token": refresh_token
+                "x-access-token": access_token
             },
             body: JSON.stringify({
                 // refresh_token: refresh_token,

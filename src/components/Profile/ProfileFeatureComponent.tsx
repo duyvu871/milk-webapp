@@ -6,7 +6,7 @@ export default function ProfileFeatureComponent({type, closeHandle}: {type: stri
     switch (type) {
         case "CHANGE_PASSWORD":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileChangePassword />} title={"Đổi mật khẩu"} />
+                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileChangePassword closeModalHandle={closeHandle}/>} title={"Đổi mật khẩu"} />
             );
         // case "CHANGE_EMAIL":
         //     return <ProfileModalComponent type={"CHANGE_EMAIL"} />;
