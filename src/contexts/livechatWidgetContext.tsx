@@ -1,5 +1,5 @@
 "use client";
-import React, {useContext, createContext, useEffect} from "react";
+import React, {useContext, createContext, useEffect, useLayoutEffect} from "react";
 
 // //@ts-ignore
 // window.__lc = window.__lc || {};
@@ -62,7 +62,7 @@ export const LiveChatWidgetProvider = ({children}: {children: React.ReactNode}) 
         })
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         //@ts-ignore
         window.__lc = window.__lc || {};
         //@ts-ignore

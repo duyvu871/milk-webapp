@@ -56,7 +56,7 @@ export default function Home() {
                 if(res.status === 200){
                     push("/");
                 } else if (res.status === 400){
-                    alert(res.message);
+                    alert(res.response.message);
                 }
             })
             .catch(err => {

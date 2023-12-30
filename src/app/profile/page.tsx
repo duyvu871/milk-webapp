@@ -124,11 +124,11 @@ export default function Page() {
                 </div>
             </div>
             <div className={"flex flex-col justify-center items-center w-full mt-16 p-4 gap-3"}>
-                <FeatureItem icon={<FaMoneyCheck />} title={"Lịch sử giao dịch"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
-                <FeatureItem icon={<FaRegNewspaper />} title={"Biến động số tiền"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
-                <FeatureItem icon={<AiOutlineStock />} title={"Lịch sử nạp"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
-                <FeatureItem icon={<MdCurrencyExchange />} title={"Lịch sử rút"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
-                <FeatureItem icon={<CiBank />} title={"Ngân hàng"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<FaMoneyCheck />} title={"Lịch sử tham gia"} clickHandle={() => {setFeatureType("PARTICIPATION_HISTORY");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<FaRegNewspaper />} title={"Biến động số tiền"} clickHandle={() => {setFeatureType("POINT_FLUCTUATION");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<AiOutlineStock />} title={"Lịch sử nạp"} clickHandle={() => {setFeatureType("TRANSACTION_HISTORY");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<MdCurrencyExchange />} title={"Lịch sử rút"} clickHandle={() => {setFeatureType("WITHDRAW_HISTORY");setIsOpenInfoPopup(true)}}/>
+                <FeatureItem icon={<CiBank />} title={"Ngân hàng"} clickHandle={() => {setFeatureType("BANKING");setIsOpenInfoPopup(true)}}/>
                 <FeatureItem icon={<FaLock />} title={"Đổi mật khẩu"} clickHandle={() => {setFeatureType("CHANGE_PASSWORD");setIsOpenInfoPopup(true)}}/>
                 <FeatureItem icon={<MdLogout />} title={"Đăng xuất"} clickHandle={() => {
                     logout();
