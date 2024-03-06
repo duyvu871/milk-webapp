@@ -1,0 +1,27 @@
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*margin-top: -39px;*/
+    /*margin-left: -39px;*/
+    border-radius: 50%;
+    border: 3px solid #eaf5fe;
+    border-right-color: #2965fc;
+    -webkit-animation: rotateSpinner 800ms linear infinite;
+    animation: rotateSpinner 800ms linear infinite;
+}
+
+@-webkit-keyframes rotateSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}

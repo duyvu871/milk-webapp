@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from "react";
-import { useRouter } from "next/navigation";
+import React, {useEffect, useLayoutEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 import AppConfig from "@/configs/App.config";
 
 export default function useAuth() {
     const { push } = useRouter();
     const [isValid, setIsValid] = useState<boolean>(false);
     const [userData, setUserData] = React.useState<any>(null);
+    const [userBalance, setUserBalance] = React.useState<number>(0);
 
-    const update: Record<any, any> = {};
+    const update: Record<string,  (...props:any) => Promise<void>> = {};
+    const userDetail: Record<string, (...props:any) => Promise<void>> = {};
 
     update.updatePassword = async function (access_token: string, password: string, username: string) {
         const response = await fetch(`${AppConfig.mainApiUrl}/auth/update/update-password`, {
@@ -24,37 +26,40 @@ export default function useAuth() {
         });
     }
 
-
-
-    useEffect(() => {
-        const access_token =  localStorage.getItem("access_token")
-        if(!access_token){
-        return push("/");
-        } else {
-        const verifyToken = async function() {
-            return await fetch(`/api/v1/auth/validateUser`, {
+    update.updateBankingMethod = async function ({bankName, accountNumber, accountName} : Record<string, string>, access_token: string) {
+        const response = await fetch(`${AppConfig.mainApiUrl}/auth/update/update-banking-method`, {
             method: "POST",
-            // cache: "force-cache",
             headers: {
                 "Content-Type": "application/json",
                 "x-access-token": access_token
             },
             body: JSON.stringify({
-                access_token: access_token
+                bankName: bankName,
+                accountNumber: accountNumber,
+                accountName: accountName
             }),
-            })
-                .then(res => res.json())
-                .then(res => {
-                if(res.status === 200) setUserData(res.data.user);
-                else {
-                    alert("not validate user")
-                    push("/");
-                }
-                }).catch(err => {console.log(err)})
-        }
-        verifyToken();
-        }
+        });
+
+    }
+
+    userDetail.getUserDetail = async function (access_token: string, username: string) {
+        const response = await fetch(`${AppConfig.mainApiUrl}/auth/get-user-detail`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": access_token
+            },
+            body: JSON.stringify({
+                // refresh_token: refresh_token,
+                // username: username
+            }),
+        });
+        return await response.json();
+    }
+
+    useLayoutEffect(() => {
+        localStorage.getItem("token") && setIsValid(true);
     }, []);
 
-    return { userData, update };
+    return {isValid, userData, update, userBalance};
 }

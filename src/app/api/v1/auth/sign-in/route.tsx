@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
         const {password, username, isRemember} = json;
 
         // const urlEncoded = new url.URLSearchParams();
-        // urlEncoded.append("password", password);
+        // urlEncoded.append("update-password", update-password);
         // urlEncoded.append("email", email);
         // urlEncoded.append("isRemember", isRemember.toString());
         //

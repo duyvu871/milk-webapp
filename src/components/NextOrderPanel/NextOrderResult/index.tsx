@@ -3,6 +3,7 @@ import ResultDisplay from "./NextOrderResultDisplay";
 // import icons
 import { FaCircleInfo } from "react-icons/fa6";
 import React from "react";
+import {tw} from "@/ultis/tailwind.ultis";
 
 interface NextOrderResultProps {
     orderID: string;
@@ -37,7 +38,18 @@ export default function NextOrderResult({
                     <FaCircleInfo className={"text-[#103A49] text-lg bg-white rounded-full"} width={12} height={12}/>
                 </div>
             </div>
-            <ResultDisplay result={digits}/>
+
+            <div className={"flex flex-row justify-center items-center gap-3"}>
+                {
+                    digits.map((digit, index) => (
+                        <div
+                            className={"px-2 bg-white border-solid border-[#113b49] border-[1px] font-semibold text-black text-xl"}
+                            key={"digits-" + index}>
+                            {digit}
+                        </div>
+                    ))
+                }
         </div>
-    )
+</div>
+)
 }

@@ -1,14 +1,30 @@
 
 interface UserInterface {
     username: string;
-    age?: number;
-    email: string;
-    address?: {
-        street: string;
-        city: string;
-        state: string;
+    role: "user"|"admin";
+    password?: string;
+    bankingInfo: {
+        bank: string;
+        accountNumber: string;
+        accountName: string;
     }
-    access_token: string;
+    balance: number;
+    uid: string;
+    transactions: string[];
+    actionHistory: string[];
+    withDrawHistory: string[];
+    // access_token: string;
 }
 
-export type {UserInterface};
+interface UserPayload {
+    username: string;
+    email: string;
+    bankMethod: {
+        bankName: string;
+        accountNumber: string;
+        accountName: string;
+    }
+    role: "user"|"admin";
+}
+
+export type {UserInterface, UserPayload};

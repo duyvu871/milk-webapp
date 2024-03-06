@@ -12,14 +12,14 @@ interface TrendingTableProps {
 
 const TableItem = ({orderID, result}: ITableItem) => {
     return (
-        <tr className={""}>
-            <td className={"flex flex-row justify-center items-center p-2 border border-gray-400 border-t-0 border-r-0 "}>
-                <div className={"text-xs font-bold mr-2 text-[#68878E] py-2 h-[32.5px]"}>{orderID}</div>
-            </td>
-            <td className={"border border-gray-400 border-l-1 border-t-0 text-[#68878E] py-2 h-[32.5px]"}>
+        <div className={"flex flex-row "}>
+            <div className={"flex flex-row justify-center items-center p-2 border border-gray-400 border-t-0 border-r-1 h-[50px] w-[150px]"}>
+                <div className={"text-xs font-bold mr-2 text-[#68878E] py-2 h-[]"}>{orderID}</div>
+            </div>
+            <div className={"border border-gray-400 border-l-0 border-t-0 text-[#68878E] h-[50px] w-full"}>
                 <ResultDisplay result={String(result).split("")}/>
-            </td>
-        </tr>
+            </div>
+        </div>
     )
 }
 
@@ -39,18 +39,18 @@ export default function TrendingTable({
     data
 }: TrendingTableProps) {
     return (
-        <div className={"m-1"}>
-            <table className={"w-full"}>
-                <thead>
-                    <tr className={""}>
-                        <th className={"text-center text-xs font-bold text-white bg-gray-800 p-2 w-[30%] border border-gray-400 border-b-[1px]"}>Số đơn</th>
-                        <th className={"text-center text-xs font-bold text-white bg-gray-800 p-2 border border-gray-400 border-b-[1px]"}>Kết quả</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div className={"m-2"}>
+            <div className={"w-full"}>
+                <div>
+                    <div className={"flex flex-row w-full"}>
+                        <div className={"text-center text-xs font-bold text-white bg-gray-800 p-2 w-[150px] border border-gray-400 border-b-[1px] border-r-0"}>Số đơn</div>
+                        <div className={"text-center text-xs font-bold text-white bg-gray-800 p-2 border border-gray-400 border-b-[1px] w-full"}>Kết quả</div>
+                    </div>
+                </div>
+                <div>
                     <TableBody data={data}/>
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     )
 }

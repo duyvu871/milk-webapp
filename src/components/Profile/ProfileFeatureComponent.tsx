@@ -1,37 +1,41 @@
 import ProfileChangePassword from "@/components/Profile/ProfileChangePassword";
 import ProfileTransactionHistory from "@/components/Profile/ProfileTransactionHistory";
-
 import ProfileModalComponent from "@/components/Profile/ProfileModal";
 import ProfileWithdrawHistory from "@/components/Profile/ProfileTransactionHistory/ProfileWithdrawHistory";
 import ProfilePointFluctuation from "@/components/Profile/ProfilePointFluctuation";
 import ProfileParticipationHistory from "@/components/Profile/ProfileParticipationHistory";
 import ProfileSelectBanking from "@/components/Profile/ProfileSelectBanking";
+import ProfileWithdrawAction from "@/components/Profile/ProfileWithdrawAction";
 
-export default function ProfileFeatureComponent({type, closeHandle}: {type: string; closeHandle: () => void}) {
+export default function ProfileFeatureComponent({type}: {type: string}) {
     switch (type) {
         case "CHANGE_PASSWORD":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileChangePassword closeModalHandle={closeHandle}/>} title={"Đổi mật khẩu"} />
+                <ProfileModalComponent content={<ProfileChangePassword />} title={"Đổi mật khẩu"} />
             );
         case "TRANSACTION_HISTORY":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileTransactionHistory />} title={"Lịch sử nạp"} />
+                <ProfileModalComponent content={<ProfileTransactionHistory />} title={"Lịch sử nạp"} />
             )
         case "WITHDRAW_HISTORY":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileWithdrawHistory />} title={"Lịch sử rút"} />
+                <ProfileModalComponent content={<ProfileWithdrawHistory />} title={"Lịch sử rút"} />
             )
         case "POINT_FLUCTUATION":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfilePointFluctuation />} title={"Biến động số tiền"} />
+                <ProfileModalComponent content={<ProfilePointFluctuation />} title={"Biến động số tiền"} />
             )
         case "PARTICIPATION_HISTORY":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileParticipationHistory />} title={"Lịch sử tham gia"} />
+                <ProfileModalComponent content={<ProfileParticipationHistory />} title={"Lịch sử tham gia"} />
             )
         case "BANKING":
             return (
-                <ProfileModalComponent closeHandler={closeHandle} content={<ProfileSelectBanking />} title={"Ngân hàng"} />
+                <ProfileModalComponent content={<ProfileSelectBanking />} title={"Ngân hàng"} />
+            )
+        case "PROFILE_WITHDRAW_ACTION":
+            return (
+                <ProfileModalComponent content={<ProfileWithdrawAction />} title={"Rút Điểm"} />
             )
         // case "CHANGE_EMAIL":
         //     return <ProfileModalComponent type={"CHANGE_EMAIL"} />;

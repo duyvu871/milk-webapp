@@ -1,13 +1,6 @@
 "use client";
 import React, {useContext, createContext, useEffect, useLayoutEffect} from "react";
-
-// //@ts-ignore
-// window.__lc = window.__lc || {};
-// //@ts-ignore
-// window.__lc.license = 16898652;
-// //@ts-ignore
-// window.__lc.asyncInit = true;
-
+import AppConfig from "@/configs/App.config";
 
 interface LivechatWidgetContextProps {
     openWidget: (liveChatWidget: any) => void;
@@ -23,7 +16,7 @@ export const LivechatWidgetContext = createContext<LivechatWidgetContextProps>({
 
 export const LiveChatWidgetProvider = ({children}: {children: React.ReactNode}) => {
     const [isWidgetOpen, setIsWidgetOpen] = React.useState<boolean>(false);
-
+    const [isLiveChatLoaded, setIsLiveChatLoaded] = React.useState<boolean>(false);
     const openWidget = (liveChatWidget?: any) => {
         setIsWidgetOpen(true);
         //@ts-ignore
@@ -66,13 +59,14 @@ export const LiveChatWidgetProvider = ({children}: {children: React.ReactNode}) 
         //@ts-ignore
         window.__lc = window.__lc || {};
         //@ts-ignore
-        window.__lc.license = 16898652;
+        window.__lc.license = AppConfig.liveChat.license;
         //@ts-ignore
         window.__lc.asyncInit = true;
         const loadLiveChat = async () => {
             try {
-                await loadScript("https://cdn.livechatinc.com/tracking.js");
-                console.log("Livechat loaded");
+                await loadScript("https://cdn.livechatinc.com/tracking.js").then(() => {
+                   console.log("loaded live chat");
+                });
                 //@ts-ignore
                 closeWidget();
             } catch (e) {
@@ -80,7 +74,6 @@ export const LiveChatWidgetProvider = ({children}: {children: React.ReactNode}) 
             }
         }
         loadLiveChat();
-
     }, []);
 
     return (

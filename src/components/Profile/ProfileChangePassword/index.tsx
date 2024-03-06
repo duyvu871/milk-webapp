@@ -1,11 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+import React, {useContext, useEffect, useState} from "react";
 import {tw} from "@/ultis/tailwind.ultis";
-import useAuth from "@/hooks/useAuth";
-// import NormalField from "@/components/InputField/NormalField";
-import {FaEyeSlash} from "react-icons/fa";
-import {FaEye} from "react-icons/fa6";
-import {NormalFieldProps} from "@/components/InputField/InputType";
+// import {FaEyeSlash} from "react-icons/fa";
+// import {FaEye} from "react-icons/fa6";
+// import {NormalFieldProps} from "@/components/InputField/InputType";
+import PasswordField from "@/components/InputField/PasswordField";
+import {useToast} from "@/hooks/useToast";
+import store from "@/redux/store";
+import {UserDataContext} from "@/contexts/UserDataContext";
+import {hideProfileScreen} from "@/redux/action/showPopup";
+import RotationLoading from "@/components/Loading/RotationLoading";
+// import {hideModal} from "@/redux/action/showPopup";
+import { timeout } from "@/helper/delayAction";
 
 const ContractField = ({
     setValue, label, placeholder, type, className, wrapperStyle, props
@@ -70,114 +75,105 @@ const ContractCheckbox = ({
     );
 }
 
-function NormalField({
-setFieldValue, placeholder, validate, customChildren, type
-}: NormalFieldProps) {
-    const [value, setValue] = React.useState<string>("");
-    const [isAlert, setIsAlert] = React.useState<boolean>(false);
-    const [alertMessage, setAlertMessage] = React.useState<string>("");
 
-    useEffect(() => {
-        const validateResult = validate;
-        if (validateResult?.status === "ALERT") {
-            setIsAlert(true);
-            setAlertMessage(validateResult.message);
-        } else if (validateResult?.status === "SUCCESS") {
-            setIsAlert(false);
-            setAlertMessage("");
-        }
-    }, [validate]);
+export default function ProfileChangePassword({ }: {}) {
+    const { error: showError, success: showSuccess } = useToast();
+    const {updatePassword} = useContext(UserDataContext);
+    const {dispatch} = store;
 
-    return (
-        <div className={"flex flex-col justify-center items-center  w-full text-black border-gray-200 border-[1px] rounded-[5px]"}>
-            <div className={"rounded-full bg-white p-[6px] px-6 w-full flex flex-row"}>
-                <input
-                    onChange={(e) => {
-                        setValue(e.target.value);
-                        setFieldValue(e.target.value);
-                    }}
-                    placeholder={placeholder}
-                    className={tw(
-                        "w-full outline-none text-black",
-                        "text-md ",
-                        isAlert ? "text-red-500 italic" : ""
-                    )}
-                    type={type || "text"}
-                />
-                {customChildren}
-            </div>
-            <span className={"text-red-500 text-xs italic"}>{alertMessage}</span>
-        </div>
-    )
-}
+    const [isFirstTimeSubmit, setIsFirstTimeSubmit] = useState<boolean>(true);
 
-function PasswordField({
-setFieldValue, placeholder, validate, customChildren
-}: NormalFieldProps) {
-    const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-
-    return (
-        <NormalField
-            setFieldValue={setFieldValue}
-            placeholder={placeholder}
-            validate={validate}
-            type={isShowPassword ? "text" : "password"}
-            customChildren={
-                <div className={"flex flex-row justify-center items-center"} onClick={() => {
-                    setIsShowPassword(!isShowPassword);
-                }}>
-                    {isShowPassword ? <FaEyeSlash size={16} className={"opacity-40"}/> : <FaEye size={16} className={"opacity-40"} />}
-                </div>
-            }
-        />
-    )
-}
-
-export default function ProfileChangePassword({ closeModalHandle }: { closeModalHandle: (value: boolean) => void }) {
     const [oldPassword, setOldPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
-    const [confirm, setConfirm] = useState<boolean>(false);
+    // const [confirm, setConfirm] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
-    const router = useRouter();
-    const {update} = useAuth();
+
+    const oldPasswordErrorRef = React.useRef<HTMLSpanElement>(null);
+    const newPasswordErrorRef = React.useRef<HTMLSpanElement>(null);
+    const confirmedPasswordErrorRef = React.useRef<HTMLSpanElement>(null);
+
+    const validatePasswords = (): boolean => {
+        if (isFirstTimeSubmit) {
+            return true;
+        }
+        let isValid = true;
+
+        if (oldPasswordErrorRef.current) {
+            if (oldPassword === "") {
+                oldPasswordErrorRef.current.innerText = "Vui lòng nhập mật khẩu cũ";
+                isValid = false;
+            } else {
+                oldPasswordErrorRef.current.innerText = "";
+            }
+        }
+
+        const fieldsToCheck = [
+            { field: newPassword, errorRef: newPasswordErrorRef, errorMessage: "Vui lòng nhập mật khẩu mới" },
+            { field: confirmPassword, errorRef: confirmedPasswordErrorRef, errorMessage: "Vui lòng xác nhận mật khẩu" },
+        ];
+
+        for (const { field, errorRef, errorMessage } of fieldsToCheck) {
+            if (errorRef.current) {
+                if (field === "") {
+                    errorRef.current.innerText = errorMessage;
+                    isValid = false;
+                } else {
+                    errorRef.current.innerText = "";
+                }
+            }
+        }
+
+        if (confirmedPasswordErrorRef.current) {
+            if (newPassword !== confirmPassword) {
+                confirmedPasswordErrorRef.current.innerText = "Mật khẩu xác nhận không trùng khớp";
+                isValid = false;
+            } else {
+                confirmedPasswordErrorRef.current.innerText = "";
+            }
+        }
+        return isValid;
+    };
 
     const handleUpdatePassword = async (e: React.MouseEvent) => {
-        // e.preventDefault();
-        // if (newPassword !== oldPassword) {
-        //     setError("New password and confirm password must be the same");
-        //     return;
-        // }
-        // if (!confirm) {
-        //     setError("Please confirm your password");
-        //     return;
-        // }
-        // if (newPassword.length < 8) {
-        //     setError("Password must be at least 8 characters");
-        //     return;
-        // }
+        const isValidPassword = validatePasswords();
+        setIsFirstTimeSubmit(false);
+        if (!isValidPassword) {
+            return;
+        }
         setLoading(true);
         try {
-            const access_token = localStorage.getItem("access_token");
-            await update.updatePassword(access_token, newPassword);
-            setSuccess("Update password successfully");
-            alert("Thay đổi mật khẩu thành công");
-            setLoading(false);
-            setTimeout(() => {
-                setSuccess("");
-                // router.push("/profile");
-                // alert("Update password successfully");
-            }, 2000);
+            const res = await updatePassword(oldPassword, newPassword);
+            // console.log(res)
+            if (res.status === 200) {
+                timeout(2000).then(() => {
+                    setLoading(false);
+                    showSuccess(res.message);
+                })
+            } else {
+                timeout(2000).then(() => {
+                    setLoading(false);
+                    showError(res.message);
+                });
+            }
         } catch (e: any) {
             setError(e.message);
             setLoading(false);
-
         }
     }
+
+    const handleInput = (dispatchEvent: React.Dispatch<React.SetStateAction<string>>) => {
+        validatePasswords();
+        return (value: string) => {
+            dispatchEvent(value);
+        }
+    }
+
+    useEffect(() => {
+
+    }, [oldPassword, newPassword, confirmPassword]);
 
     return (
         <div className={tw(
@@ -197,7 +193,8 @@ export default function ProfileChangePassword({ closeModalHandle }: { closeModal
                         Mật khẩu cũ:
                     </span>
                     <PasswordField
-                        setFieldValue={setOldPassword}
+                        className={"border-gray-300 border-[1px] rounded-[5px]"}
+                        setFieldValue={handleInput(setOldPassword)}
                         placeholder={""}
                         validate={{
                             status: "SUCCESS",
@@ -205,13 +202,15 @@ export default function ProfileChangePassword({ closeModalHandle }: { closeModal
                         }}
                         customChildren={null}
                     />
+                    <span className={"text-red-500 text-xs italic"} ref={oldPasswordErrorRef}></span>
                 </div>
                 <div className={"w-full"}>
                     <span className={"mb-1"}>
                         Mật khẩu mới:
                     </span>
                     <PasswordField
-                        setFieldValue={setNewPassword}
+                        className={"border-gray-300 border-[1px] rounded-[5px]"}
+                        setFieldValue={handleInput(setNewPassword)}
                         placeholder={""}
                         validate={{
                             status: "SUCCESS",
@@ -219,13 +218,15 @@ export default function ProfileChangePassword({ closeModalHandle }: { closeModal
                         }}
                         customChildren={null}
                     />
+                    <span className={"text-red-500 text-xs italic"} ref={newPasswordErrorRef}></span>
                 </div>
                 <div className={"w-full"}>
                     <span className={"mb-1"}>
                         Xác nhận mật khẩu mới:
                     </span>
                     <PasswordField
-                        setFieldValue={setConfirmPassword}
+                        className={"border-gray-300 border-[1px] rounded-[5px]"}
+                        setFieldValue={handleInput(setConfirmPassword)}
                         placeholder={""}
                         validate={{
                             status: "SUCCESS",
@@ -233,15 +234,21 @@ export default function ProfileChangePassword({ closeModalHandle }: { closeModal
                         }}
                         customChildren={null}
                     />
+                    <span className={"text-red-500 text-xs italic"} ref={confirmedPasswordErrorRef}></span>
                 </div>
                 <div className="flex flex-row justify-end items-center w-full">
                     <button className={"bg-[#e2e5ec] text-sm uppercase font-semibold cursor-pointer mx-[5px] my-0 px-[15px] py-2.5 rounded-[5px] border-[none]"} onClick={() => {
-                        closeModalHandle(false);
+                        dispatch(hideProfileScreen());
                     }}>
                         Hủy
                     </button>
-                    <button className={"bg-[#113b49] text-white text-sm uppercase font-semibold cursor-pointer mx-[5px] my-0 px-[15px] py-2.5 rounded-[5px] border-[none]"} onClick={handleUpdatePassword}>Xác
-                        nhận
+                    <button
+                        className={"flex flex-row justify-center items-center gap-3 bg-[#113b49] text-white text-sm uppercase font-semibold cursor-pointer mx-[5px] my-0 px-[15px] py-2.5 rounded-[5px] border-[none]"}
+                        onClick={handleUpdatePassword}
+                        disabled={loading}
+                    >
+                        {loading ? <RotationLoading height={30} width={30}/> : <></>}
+                        Xác nhận
                     </button>
                 </div>
             </div>

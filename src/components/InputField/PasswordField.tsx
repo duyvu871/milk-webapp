@@ -10,12 +10,13 @@ interface PasswordFieldProps extends NormalFieldProps {
 
 }
 export default function PasswordField({
-    setFieldValue, placeholder, validate, customChildren
+    setFieldValue, placeholder, validate, customChildren, className
 }: PasswordFieldProps) {
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
     return (
         <NormalField
+            className={className}
             setFieldValue={setFieldValue}
             placeholder={placeholder}
             validate={validate}

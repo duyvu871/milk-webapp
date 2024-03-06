@@ -1,5 +1,4 @@
 "use client"
-
 import TrendingHead from "@/components/Trending/TrendingHead";
 import NextOrderBanner from "@/components/NextOrderPanel/NextOrderBanner";
 import TrendingTable from "@/components/Trending/TrendingTable";
@@ -8,7 +7,7 @@ import {useRouter} from "next/navigation";
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import fakeResponseData from "@/fakeData/fakeResponseData";
 import AppConfig from "@/configs/App.config";
-
+import { extractProperties } from "@/helper/extractProperties";
 
 interface ITableItem {
     orderID: string;
@@ -17,56 +16,18 @@ interface ITableItem {
 }
 
 
-const TrendingDisplay = () => {
-
+const TrendingPage = () => {
     const { push } = useRouter();
-
     const [data, setData] = useState<ITableItem[]>([]);
-    // const initial = useRef(false);
-    // const initial = useRef(true);
-
-
 
     useEffect(() => {
-        // alert("TrendingDisplay");
-        // if (!initial.current) {
-        //     initial.current = true;
-        //     return;
-        // } else {
-        //     alert("TrendingDisplay inside initial.current");
-            const access_token =  localStorage.getItem("access_token")
-            // console.log(access_token)
-            if(!access_token){
-                return push("/");
-            } else {
-                const getOrderList = async () => {
-                    console.log(access_token)
-                    const response = await fetch(`${AppConfig.mainApiUrl}/order/get-order-list`, {
-                        method: "GET",
-                        // body: new URLSearchParams(),
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "x-access-token": access_token || ""
-                        },
-                    }).then(res => res.json())
-                        .then((data) => {
-                            console.log(data);
-                            setData(data);
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
-                    // setData(fakeResponseData.orderList.map((item) => ({orderID: String(item.orderID), result: Number(item.result)})));
-                }
-
-                getOrderList();
-            }
-        // }
+        const extraData = fakeResponseData.orderList.map(order => extractProperties(order, ["orderID", "result"]));
+        setData(extraData as unknown as ITableItem[]);
     }, []);
 
 
     return (
-        <>
+        <div className={"flex flex-col justify-center items-center"}>
             <div className={"mx-[1px] mt-[1px] w-full"}>
                 <TrendingHead/>
                 <NextOrderBanner className={"bg-[#68878E]"}/>
@@ -74,14 +35,9 @@ const TrendingDisplay = () => {
             <div className={"mx-[1px] mt-[1px]  mb-[150px] w-full"}>
                 <TrendingTable data={data}/>
             </div>
-            <MenuBar userData={{
-                username: "Nguyễn Văn A",
-                phone: "0123456789",
-                email: ""
-
-            }}/>
-        </>
+            {/*<MenuBar />*/}
+        </div>
     )
 }
 
-export default TrendingDisplay;
+export default TrendingPage;

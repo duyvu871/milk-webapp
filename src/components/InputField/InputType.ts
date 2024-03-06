@@ -8,5 +8,6 @@ export interface NormalFieldProps {
         status: string;
         message: string;
     };
+    className?: string;
     customChildren?: React.ReactNode;
 }

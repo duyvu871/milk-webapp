@@ -5,7 +5,6 @@ import {pop} from "@jridgewell/set-array";
 import {useDispatch, useSelector} from "react-redux";
 // import showPopup from "@/redux/action/showPopup";
 // import {OpenPopupContext, OpenPopupProvider} from "@/contexts/openPopupContext";
-import popupReducer from "@/redux/reducers/popupShow";
 
 export default function PopupLayout({
 children, popupTitle, onClose, isShowPopup, disableCloseButton = false
@@ -16,16 +15,9 @@ children, popupTitle, onClose, isShowPopup, disableCloseButton = false
     isShowPopup: boolean;
     disableCloseButton?: boolean;
 }) {
-
-    const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
-    // const {openPopup, setOpenPopup} = useContext(OpenPopupContext);
-
     const closeHandler = () => {
-       // dispatch(showPopup(false));
-       // alert("closeHandler");
        onClose(false);
     }
-
     return (
         // <OpenPopupProvider>
             <div className="overlay" style={{

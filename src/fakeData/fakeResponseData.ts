@@ -37,7 +37,7 @@ const FakeResponseData = {
 
             ],
         },
-        "VINA MILK": {
+        "VINAMILK": {
             total: 100,
             productImage: "/images/Logo_vinamilk.png",
             colorSignatures: "#64C845",
@@ -65,7 +65,7 @@ const FakeResponseData = {
                 },
                 {
                     id: '4',
-                    name: 'Sữa ĐẬU NÀNH VINA MILK',
+                    name: 'Sữa ĐẬU NÀNH VINAMILK',
                     price: 10000,
                     image: 'https://cdn.tgdd.vn/Products/Images/2103/235919/bhx/sua-tuoi-th-true-milk-180ml-202103251046318019.jpg',
                     quantity: 1,

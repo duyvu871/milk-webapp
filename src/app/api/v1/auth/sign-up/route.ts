@@ -1,8 +1,7 @@
-import * as process from "process";
-import { promises as fs } from 'fs';
+// import * as process from "process";
+// import { promises as fs } from 'fs';
 import {NextRequest, NextResponse} from "next/server";
-// import axios, {isCancel, Axios, AxiosResponse} from "axios";
-import AppConfig from "@/configs/App.config";
+import {signUp} from "@/lib/auth/signup";
 
 interface ISignUpRequest {
     username: string;
@@ -11,44 +10,20 @@ interface ISignUpRequest {
     phone: string;
 }
 
-// export const dynamic = "force-dynamic";
-// export async function GET(request: Request) {
-//     try {
-//
-//     } catch (e) {
-//         console.log(e)
-//     }
-// }
-
-// export async function HEAD(request: NextRequest) {}
-
 export async function POST(request: NextRequest) {
     try {
         const json: ISignUpRequest = await request.json();
         console.log(json);
-        const {username , password, email, phone} = json;
+        const {username , password} = json;
 
-       const response = await fetch(`${AppConfig.mainApiUrl}/auth/sign-up`, {
-           method: "POST",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-                body: new URLSearchParams({
-                    username,
-                    password,
-                    // email,
-                    // phone
-                })
-       }).then(res => res.json());
-
-        console.log(response)
+        const response = await signUp({username, password});
 
         return new NextResponse(JSON.stringify(response), {
             status: 200,
             headers: { "Content-Type": "application/json" },
         });
     } catch (e: any) {
-        console.log(e);
+        // console.log(e);
         return new NextResponse(JSON.stringify({ error: e.message }), {
             status: 500,
             headers: { "Content-Type": "application/json" },

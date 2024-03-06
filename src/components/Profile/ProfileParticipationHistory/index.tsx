@@ -10,7 +10,7 @@ function ProfileParticipationHistory({}: ProfileParticipationHistoryProps) {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-2.5 px-[5px] py-2.5 rounded-[5px] bg-[#113b49]" >
+            <div className="flex justify-between items-center mb-2.5 px-[5px] py-2.5 rounded-[5px] bg-[#113b49] text-sm">
                 <div className="text-white" >
                     <span>Tổng số đơn:</span> <b>0</b>
                 </div>
@@ -19,7 +19,7 @@ function ProfileParticipationHistory({}: ProfileParticipationHistoryProps) {
                 </div>
             </div>
             <div className="historyBet__items" >
-                <div className="rounded-[5px] bg-[#e2e5ec] flex justify-between items-center border-b-[length:var(--border-input)] cursor-pointer">
+                <div className="rounded-[5px] bg-[#e2e5ec] flex justify-between items-center border-b-[length:var(--border-input)] cursor-pointer text-sm">
                     <span className={tw(spanClass, "w-[50%]")}>Số đơn</span>
                     <span className={tw(spanClass, "w-[30%]")}>Tổng tiền</span>
                     <span className={tw(spanClass, "w-[20%]")}>Tổng thưởng</span>

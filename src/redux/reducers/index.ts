@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux';
 
-import modalReducer from './popupShow';
+import {modalReducer, profileScreenReducer} from './popupShow';
+import screenReducer from "@/redux/reducers/changeScreen";
 
 const rootReducer = combineReducers({
-    modal: modalReducer
+    modal: modalReducer,
+    screen: screenReducer,
+    profileScreen: profileScreenReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

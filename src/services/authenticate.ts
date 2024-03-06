@@ -1,4 +1,7 @@
-
+import { BankingMethodUpdate } from "@/services/interface.authenticate";
+import clientPromise from "@/lib/mongodb";
+import { getServerSession } from "next-auth";
+import nextauthOptions from "@/lib/nextauthOptions";
 
 export function logout() {
     localStorage.removeItem('access_token');
@@ -31,4 +34,16 @@ export async function validateUser() {
     const data = await response.json();
 
     return data.message === 'success';
+}
+
+export async function updateBankingMethod(bankMethod: BankingMethodUpdate) {
+    const res = await fetch('/api/v1/auth/update/update-banking-method', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({...bankMethod})
+    });
+
+    return res.json();
 }
